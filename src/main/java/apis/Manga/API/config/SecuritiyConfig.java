@@ -1,7 +1,7 @@
-package apis.Manga.API.Config;
+package apis.Manga.API.config;
 
-import apis.Manga.API.Security.JwtAuthentificationEntryPoint;
-import apis.Manga.API.Security.JwtAuthentificationFilter;
+import apis.Manga.API.security.JwtAuthentificationEntryPoint;
+import apis.Manga.API.security.JwtAuthentificationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

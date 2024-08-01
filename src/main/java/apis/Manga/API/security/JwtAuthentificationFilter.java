@@ -1,4 +1,4 @@
-package apis.Manga.API.Security;
+package apis.Manga.API.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

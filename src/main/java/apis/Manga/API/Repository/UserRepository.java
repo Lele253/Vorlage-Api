@@ -1,7 +1,7 @@
 package apis.Manga.API.Repository;
 
 
-import apis.Manga.API.Entety.User;
+import apis.Manga.API.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

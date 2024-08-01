@@ -1,9 +1,9 @@
-package apis.Manga.API.Controller;
-import apis.Manga.API.Entety.*;
+package apis.Manga.API.controller;
+import apis.Manga.API.entity.*;
 
 import apis.Manga.API.Repository.UserRepository;
-import apis.Manga.API.Security.JwtAuthentificationFilter;
-import apis.Manga.API.Security.JwtTokenProvider;
+import apis.Manga.API.security.JwtAuthentificationFilter;
+import apis.Manga.API.security.JwtTokenProvider;
 import apis.Manga.API.request.AuthRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;

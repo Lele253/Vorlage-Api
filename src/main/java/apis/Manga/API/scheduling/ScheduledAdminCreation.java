@@ -1,6 +1,6 @@
-package apis.Manga.API.Scheduling;
+package apis.Manga.API.scheduling;
 
-import apis.Manga.API.Entety.User;
+import apis.Manga.API.entity.User;
 import apis.Manga.API.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

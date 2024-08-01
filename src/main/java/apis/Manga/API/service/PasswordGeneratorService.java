@@ -1,4 +1,4 @@
-package apis.Manga.API.Service;
+package apis.Manga.API.service;
 
 import java.security.SecureRandom;
 

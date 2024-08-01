@@ -1,4 +1,4 @@
-package apis.Manga.API.Security;
+package apis.Manga.API.security;
 
 
 import io.jsonwebtoken.*;
