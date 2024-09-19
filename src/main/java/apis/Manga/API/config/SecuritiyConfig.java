@@ -40,12 +40,33 @@ public class SecuritiyConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
     @Override
-    public void configure(HttpSecurity http) throws Exception{
+    public void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(jwtAuthentificationEntryPoint)
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
+                .cors()
+                .and()
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthentificationEntryPoint)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                // Allow Swagger URLs without authentication
+                .antMatchers(
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/swagger-resources/**",
+                        "/webjars/**"
+                ).permitAll()
+                // Allow any requests under /auth/ to be accessed without authentication
+                .antMatchers("/auth/**").permitAll()
+                // All other requests need to be authenticated
+                .anyRequest().authenticated();
 
+        // Add JWT authentication filter before UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtAuthentificationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 }
