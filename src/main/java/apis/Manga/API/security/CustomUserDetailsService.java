@@ -1,7 +1,7 @@
 package apis.Manga.API.security;
 
 import apis.Manga.API.entity.User;
-import apis.Manga.API.Repository.UserRepository;
+import apis.Manga.API.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

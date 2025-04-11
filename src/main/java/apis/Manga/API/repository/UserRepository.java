@@ -1,4 +1,4 @@
-package apis.Manga.API.Repository;
+package apis.Manga.API.repository;
 
 
 import apis.Manga.API.entity.User;

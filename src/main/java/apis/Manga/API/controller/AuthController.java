@@ -1,7 +1,8 @@
 package apis.Manga.API.controller;
+
 import apis.Manga.API.entity.*;
 
-import apis.Manga.API.Repository.UserRepository;
+import apis.Manga.API.repository.UserRepository;
 import apis.Manga.API.security.JwtAuthentificationFilter;
 import apis.Manga.API.security.JwtTokenProvider;
 import apis.Manga.API.request.AuthRequest;
@@ -33,85 +34,73 @@ public class AuthController {
     private JwtTokenProvider jwtTokenProvider;
 
 
-    public AuthController(  UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
-
+    public AuthController(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
-
-
     }
 
-
-
-
-    @CrossOrigin
-    @PostMapping(value = "/Regist")
-    public ResponseEntity<User> register(@RequestBody AuthRequest authRequest) {
-        Optional<User> userOptional = userRepository.findByEmail(authRequest.getEmail());
-        if (userOptional.isPresent()) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        User user = new User();
-        user.setEmail(authRequest.getEmail());
-        user.setUsername(authRequest.getUsername());
-
-        user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
-        User created = userRepository.save(user);
-        return ResponseEntity.ok(created);
-
-    }
+//    @CrossOrigin
+//    @PostMapping(value = "/Regist")
+//    public ResponseEntity<User> register(@RequestBody AuthRequest authRequest) {
+//        Optional<User> userOptional = userRepository.findByEmail(authRequest.getEmail());
+//        if (userOptional.isPresent()) {
+//            return ResponseEntity.badRequest().build();
+//        }
+//
+//        User user = new User();
+//        user.setEmail(authRequest.getEmail());
+//
+//        user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
+//        User created = userRepository.save(user);
+//        return ResponseEntity.ok(created);
+//
+//    }
 
 
     @GetMapping("/user")
     public Optional<User> getUser() {
         return userRepository.findByEmail(jwtTokenProvider.getUserMailFromToken(JwtAuthentificationFilter.x));
     }
+//
+//    @GetMapping("/user/all/{nutzerId}")
+//    public User leseNutzerListe(@PathVariable long nutzerId) {
+//        Optional<User> user = Optional.ofNullable(userRepository.findById(nutzerId));
+//        if (user.isPresent()) {
+//            return user.get();
+//        }
+//        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//    }
 
-    @GetMapping("/user/all/{nutzerId}")
-    public User leseNutzerListe(@PathVariable long nutzerId) {
-        Optional<User> user = Optional.ofNullable(userRepository.findById(nutzerId));
-        if (user.isPresent()) {
-            return user.get();
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-    }
-
-    @DeleteMapping("/user/all/{nutzerId}")
-    public Boolean deleteOrder1(@PathVariable(value = "nutzerId") Long Id) {
-        userRepository.deleteById(Id);
-        return true;
-    }
-
-
+//    @DeleteMapping("/user/all/{nutzerId}")
+//    public Boolean deleteOrder1(@PathVariable(value = "nutzerId") Long Id) {
+//        userRepository.deleteById(Id);
+//        return true;
+//    }
 
 
-    @CrossOrigin
-    @GetMapping("/user/all")
-    public List<User> getUserAll() {
-        return userRepository.findAll();
-    }
-
-
-
-
+//    @CrossOrigin
+//    @GetMapping("/user/all")
+//    public List<User> getUserAll() {
+//        return userRepository.findAll();
+//    }
+//
 
     @CrossOrigin
     @PostMapping(value = "/login")
-    public ResponseEntity<Map<String, Object>>  login(@RequestBody AuthRequest authRequest) {
-        try{
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        authRequest.getEmail(),
-                        authRequest.getPassword()
-                )
-        );
+    public ResponseEntity<Map<String, Object>> login(@RequestBody AuthRequest authRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authRequest.getEmail(),
+                            authRequest.getPassword()
+                    )
+            );
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwtToken = jwtTokenProvider.generateToken(authentication);
 
-            Optional<User> userDetails = userRepository.findByEmail(authRequest.getEmail());;
+            Optional<User> userDetails = userRepository.findByEmail(authRequest.getEmail());
 
             Map<String, Object> response = new HashMap<>();
             response.put("token", jwtToken);
@@ -122,13 +111,7 @@ public class AuthController {
             // Handle authentication failure
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
-
-
     }
-
-
-
 }
 
 
